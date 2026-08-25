@@ -98,6 +98,47 @@
   checkConfig = false;
   wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
   config = rec {
+    bars = [
+    {
+    position = "top";
+    statusCommand = "${pkgs.i3status}/bin/i3status";
+
+    fonts = {
+      names = [ "JuliaMono" ];
+      size = 10.0;
+    };
+
+    colors = {
+      background = "#363d4bB3";
+      statusline = "#ffffff";
+      separator = "#666666";
+
+      focusedWorkspace = {
+        border = "#994e55";
+        background = "#994e55B3";
+        text = "#ffffff";
+      };
+
+      activeWorkspace = {
+        border = "#994e55";
+        background = "#994e55B3";
+        text = "#ffffff";
+      };
+
+      inactiveWorkspace = {
+        border = "#363d4b";
+        background = "#363d4b";
+        text = "#ffffff";
+      };
+
+      urgentWorkspace = {
+        border = "#994e55";
+        background = "#994e55";
+        text = "#ffffff";
+          };
+        };
+      }
+    ];
     modifier = "Mod4";
     terminal = "kitty -e tmux new-session -A -s main";
     defaultWorkspace = "workspace number 1";
@@ -131,16 +172,16 @@
       };
     workspaceOutputAssign = [
       {
-        workspace = "workspace number 1";
-        output = "eDP-1";
+        workspace = "1";
+        output = "eDP-1"; # BUILT-IN DISPLAY
       }
       {
-        workspace = "workspace number 2";
-        output = "DP-6";
+        workspace = "2";
+        output = "DP-6";  # CLOUDKEY DESK
       }
       {
-        workspace = "workspace number 3";
-        output = "DP-7";
+        workspace = "3";
+        output = "DP-7";  # CLOUDKEY DESK
       }
     ];
     keybindings = 
@@ -153,6 +194,51 @@
       };
     };
   };
+
+  # i3STATUS CONFIGURATION
+  programs.i3status = {
+  enable = true;
+
+  general = {
+    colors = false;
+    interval = 5;
+  };
+
+  modules = {
+    "wireless _first_" = {
+      position = 1;
+      settings = {
+        format_up = "W: (%quality at %essid) %ip";
+        format_down = "W: down";
+      };
+    };
+    "battery all" = {
+      position = 2;
+      settings = {
+        format = "%status %percentage %remaining";
+      };
+    };
+    "disk /" = {
+      position = 3;
+      settings = { format = "%free"; };
+    };
+    "load" = {
+      position = 4;
+      settings = { format = "%1min"; };
+    };
+    "memory" = {
+      position = 5;
+      settings = {
+        format = "%used / %total";
+        threshold_degraded = "10%";
+      };
+    };
+    "tztime local" = {
+      position = 6;
+      settings = { format = "%Y-%m-%d %H:%M:%S"; };
+    };
+  };
+};
 
   # XDG DESKTOP PORTAL CONFIGURATION
   xdg.portal = {
@@ -295,6 +381,6 @@
   themeFile = "Ayaka";
 };
 
-# FORCE OVERWRITE KITTY CONFIGURATION
-xdg.configFile."kitty/kitty.conf".force = true;
+  # FORCE OVERWRITE KITTY CONFIGURATION
+  xdg.configFile."kitty/kitty.conf".force = true;
 }
