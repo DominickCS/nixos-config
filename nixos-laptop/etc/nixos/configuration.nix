@@ -18,7 +18,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # HOSTNAME CONFIGURATION:
-  networking.hostName = "nixos-desktop";
+  networking.hostName = "nixos";
 
   # NETWORK MANAGER CONFIGURATION:
   networking.networkmanager.enable = true;
@@ -152,13 +152,10 @@
   # GRAPHICS CONFIGURATION
   hardware.graphics.enable = true;
 
-  # SSH CONFIGURATION
-  services.openssh.enable = true;
-
   # PIPEWIRE CONFIGURATION
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    enable = true; # if not already enabled
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
