@@ -38,6 +38,12 @@
     nodejs
     wireguard-tools
     pavucontrol
+    unzip
+    discord
+    xdg-utils
+    tor-browser
+    cifs-utils
+    claude-code
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
